@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  Class này sẽ được Spring Boot hiểu là một Bean (hoặc dependency)
  Và sẽ được Spring Boot quản lý
 */
-@Component
+@Component("bikini")
 public class Bikini implements Outfit{
 
     @Override

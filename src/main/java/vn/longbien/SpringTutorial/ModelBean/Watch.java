@@ -1,16 +1,14 @@
 package vn.longbien.SpringTutorial.ModelBean;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-@Component
-public class Watch {
+@Component("watch")
+public class Watch implements Outfit{
 
-
-    @Autowired
-    public  Outfit outfit;
-
-    public Watch(Outfit outfit) {
-        this.outfit = outfit;
+    @Override
+    public void wear() {
+        System.out.println("Rolex");
     }
 }
