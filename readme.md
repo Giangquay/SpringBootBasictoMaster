@@ -14,3 +14,7 @@
 `@Configuration: Là một Annotation đặc biệt của Spring. Khi một class được đánh dấu là @Configuration thì Spring hiểu class này là nơi chúng ta cấu hình, cài đặt và tạo ra những Bean cần thiết cho chương trình, nên IOC Container nó sẽ chạy vào Class này trước tiên.`
 
 `@Bean: Chỉ được gắn trên method và nó sẽ đánh dấu đối tượng trả về trong hàm là bean và IoC Container sẽ phải quản lý nó. Tương tự @Component. tuy nhiên @Bean chỉ gắn trên method mà thôi.`
+
+`@PostConstruct được đánh dấu trên một method duy nhất bên trong Bean. IoC Container hoặc ApplicationContext sẽ gọi hàm này sau khi một Bean được tạo ra và quản lý.`
+
+`@PreDestroy được đánh dấu trên một method duy nhất bên trong Bean. IoC Container hoặc ApplicationContext sẽ gọi hàm này trước khi một Bean bị xóa hoặc không được quản lý nữa.`
