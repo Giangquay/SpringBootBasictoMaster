@@ -1,20 +1,26 @@
+#### Kiến trúc MVC trong Spring Boot được xây dựng dựa trên tư tưởng "độc lập" kết hợp với các nguyên lý thiết kế hướng đối tượng (một đại diện tiêu biểu là Dependency Inversion). Độc lập ở đây ám chỉ việc các layer phục vụ các mục đích nhất định, khi muốn thực hiện một công việc ngoài phạm vi thì sẽ đưa công việc xuống các layer thấp hơn.
 
-`@Component là một Annotation (chú thích) đánh dấu trên các Class để giúp Spring biết nó là một Bean `
+#####   Kiến trúc Controller-Service - Repository chia project thành 3 lớp:
 
-`@Autowired: Là Annotation được chú thích trên một thuộc tính (field) hoặc hàm (function) để nói với IoC Container là hãy tự inject những thuộc tính này`
+1. Consumer Layer hay Controller: là tầng giao tiếp với bên ngoài và handler các request từ bên ngoài tới hệ thống.
 
-`@Qualifier xác định tên của một Bean mà bạn muốn chỉ định inject.`
+2. Service Layer: Thực hiện các nghiệp vụ và xử lý logic
 
-`@Primary là annotation đánh dấu trên một Bean, giúp nó luôn được ưu tiên lựa chọn trong trường hợp có nhiều Bean cùng loại trong Context.`
+3. Repository Layer: Chịu trách nhiệm giao tiếp với các DB, thiết bị lưu trữ, xử lý query và trả về các kiểu dữ liệu mà tầng Service yêu cầu.
 
-`@Scope("prototype"): tương đương với việc tạo new Object`
 
-`@Scope("singleton"): Không nói gì, thì Spring sẽ mặc định là scope này. Singleton, đối tượng chỉ được tạo ra duy nhất một lần.`
+* `@Service Đánh dấu một Class là tầng Service, phục vụ các logic nghiệp vụ.`
+* `@Repository Đánh dấu một Class Là tầng Repository, phục vụ truy xuất dữ liệu.`
 
-`@Configuration: Là một Annotation đặc biệt của Spring. Khi một class được đánh dấu là @Configuration thì Spring hiểu class này là nơi chúng ta cấu hình, cài đặt và tạo ra những Bean cần thiết cho chương trình, nên IOC Container nó sẽ chạy vào Class này trước tiên.`
+``Về bản chất @Service và @Repository cũng chính là @Component. Nhưng đặt tên khác nhau để giúp chúng ta phân biệt các tầng với nhau.``
 
-`@Bean: Chỉ được gắn trên method và nó sẽ đánh dấu đối tượng trả về trong hàm là bean và IoC Container sẽ phải quản lý nó. Tương tự @Component. tuy nhiên @Bean chỉ gắn trên method mà thôi.`
+### Tuy nhiên từ góc độ thiết kế thì chúng ta cần phân rõ 3 Annotation này cho các Class đảm nhiệm đúng nhiệm vụ của nó.
 
-`@PostConstruct được đánh dấu trên một method duy nhất bên trong Bean. IoC Container hoặc ApplicationContext sẽ gọi hàm này sau khi một Bean được tạo ra và quản lý.`
+* @Service gắn cho các Bean đảm nhiệm xử lý logic
+* @Repository gắn cho các Bean đảm nhiệm giao tiếp với DB
+* @Component gắn cho các Bean khác.
 
-`@PreDestroy được đánh dấu trên một method duy nhất bên trong Bean. IoC Container hoặc ApplicationContext sẽ gọi hàm này trước khi một Bean bị xóa hoặc không được quản lý nữa.`
+### Đây là 2 cách để tìm bean ở các package khác vì Component chỉ dò các class cùng cấp hoặc thấp hơn
+
+* @ComponentScan Tìm các Bean bên cạnh class App và những package con bên cạnh app
+* @SpringBootApplication(scanBasePackages="") Tìm các Bean bên cạnh class App và những package con bên cạnh app
